@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Index</title>
+</head>
+<body style="background-color:#000033;" >
+    <div align="center";>
+        <h2 style="color:#CCCCD6; font-family: Courier;">Your low resolution image </h2>
+    </div> 
+        <div class="row" id="line">
+            <div class="column">
+                <div align="center";>
+                    <h2 style="color:#CCCCD6; font-family: Courier;">Your original image </h2>
+                </div>
+                <img src="{{ user_image +'.png'  }}"  />
+            </div>
+            <div class="column">
+                <div align="center";>
+                    <h2 style="color:#CCCCD6; font-family: Courier;">Your image upscaled </h2>
+                </div> 
+                <img src="{{ user_image  +'_upscaled.png' }} "/>
+            </div>
+        </div> 
+        <style>
+            line {
+                display: inline-block;
+                vertical-align: top
+            }
+            </style>
+</body>
+</html>
+
+
