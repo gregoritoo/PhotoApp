@@ -29,7 +29,7 @@ https://arxiv.org/abs/2111.14320
 python optimize-graph.py --ckpt_path ./checkpoints/netG_4x_epoch100.pth.tar --save_path ./checkpoints/optimized_model.pt --device cuda
 ```
 
-## Please cite our article
+## Repo adapted from
  ``` bibtex
   @article{krishnan2021swiftsrgan,
   title={SwiftSRGAN--Rethinking Super-Resolution for Efficient and Real-time Inference},
