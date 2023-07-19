@@ -8,43 +8,31 @@ from model.SRGAN.loss.loss import GeneratorLoss
 from model.SRGAN.data.ImageNetDataloaders import TrainDatasetFromFolder,ValDatasetFromFolder
 from torch.utils.data import DataLoader
 
-def load_data(batch_size=64):
-    imagenet_data = torchvision.datasets.ImageNet('../data','train')
-    train_loader = torch.utils.data.DataLoader(imagenet_data,
-                                          batch_size= batch_size,
-                                          shuffle=True,
-                                          num_workers=4)
-    imagenet_data = torchvision.datasets.ImageNet('../data','test')
-    test_loader = torch.utils.data.DataLoader(imagenet_data,
-                                          batch_size= batch_size,
-                                          shuffle=True,
-                                          num_workers=4)
-    return train_loader, test_loader
     
 
 def train(epochs = 100):
     generator_criterion = GeneratorLoss()
-    train_set = TrainDatasetFromFolder('data/DIV2K_train_HR', crop_size=1, upscale_factor=2)
-    val_set = ValDatasetFromFolder('data/DIV2K_valid_HR', upscale_factor=2)
-    train_loader = DataLoader(dataset=train_set, num_workers=4, batch_size=64, shuffle=True)
-    val_loader = DataLoader(dataset=val_set, num_workers=4, batch_size=1, shuffle=False)
+    train_set = TrainDatasetFromFolder('model/SRGAN/data/VOC_train_HR', crop_size=186, upscale_factor=2)
+    val_set = ValDatasetFromFolder('model/SRGAN/data/VOC_test_HR', upscale_factor=2)
+    train_loader = DataLoader(dataset=train_set, num_workers=1, batch_size=1, shuffle=True)
+    val_loader = DataLoader(dataset=val_set, num_workers=1, batch_size=1, shuffle=False)
     generator = Generator(3)
     discriminator = Discriminator(3)
     generator.train()
     discriminator.train()
     if torch.cuda.is_available():
-        generator.cuda()
-        discriminator.cuda()
+        generator = generator.to("cuda:0")
+        discriminator = discriminator.to("cuda:0")
     optimizerG = optim.Adam(generator.parameters())
     optimizerD = optim.Adam(discriminator.parameters())
-
+    print("generator ",next(generator.parameters()).is_cuda)
     for epoch in range(epochs) :
         for data,target in train_loader :
             discriminator.zero_grad()
             if torch.cuda.is_available():
-                target.cuda()
+                target = target.to("cuda:0")
             if torch.cuda.is_available():
-                data.cuda()
+                data = data.to("cuda:0")
             fake_img = generator(data)
             real_img = target
 
@@ -66,5 +54,6 @@ def train(epochs = 100):
 
 
 
-
+if __name__ == '__main__' :
+    train(1)
 

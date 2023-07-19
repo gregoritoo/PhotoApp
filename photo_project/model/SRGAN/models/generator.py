@@ -6,17 +6,18 @@ import torch
 class ResidualBlock(nn.Module) :
     def __init__(self,input_size=64):
         super().__init__()
-        self.conv_1 = nn.Conv2d(input_size,64,(3,3),(1,1))
+        self.conv_1 = nn.Conv2d(input_size,64,(3,3),(1,1),(1, 1), bias=False)
         self.batch_norm_1 = nn.BatchNorm2d(64)
-        self.conv_2 = nn.Conv2d(64,64,(3,3),(1,1))
+        self.conv_2 = nn.Conv2d(64,64,(3,3),(1,1),(1, 1), bias=False)
         self.batch_norm_2 = nn.BatchNorm2d(64)
+        self.activation = nn.PReLU()
 
 
     def forward(self,x) :
         self.residue = x 
         x = self.conv_1(x)
         x = self.batch_norm_1(x)
-        x = nn.PReLU()(x)
+        x = self.activation(x)
         x = self.conv_2(x)
         x = self.batch_norm_2(x)
         x = torch.add(x,self.residue)
@@ -47,13 +48,14 @@ class Generator(nn.Module):
     
     """
     def __init__(self,input_channel=3,nb_resiudal_blocks=5):
+        super().__init__()
         self.conv_layer = nn.Conv2d(input_channel,64,9,1)
         self.norm = nn.BatchNorm2d(64)
-        self.residual_blocks =[ResidualBlock(64) for _ in range(nb_resiudal_blocks)] 
-        self.in_conv_layer = nn.Conv2d(64,3,3,1)
+        self.residual_blocks =[ResidualBlock(64).cuda() for _ in range(nb_resiudal_blocks)] 
+        self.in_conv_layer = nn.Conv2d(64,64,(3,3),(1,1),(1,1))
         self.norm_2 = nn.BatchNorm2d(64)
-        self.out_conv_layer = nn.Conv2d(256,2,(3,3),(1,1))
-        self.upscaling_layers = [ShufllingBlock(64,2) for _ in range(2) ]
+        self.upscaling_layers = [ShufllingBlock(64,2).cuda() for _ in range(2) ]
+        self.out_conv_layer = nn.Conv2d(64,3,(9,9),(1,1))
 
 
     def forward(self,x):
@@ -67,6 +69,7 @@ class Generator(nn.Module):
         x = torch.add(x,self.residue_1)
         for layer in self.upscaling_layers :
             x = layer(x)
+        x = self.out_conv_layer(x)
         return x 
 
 
