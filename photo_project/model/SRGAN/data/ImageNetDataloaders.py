@@ -16,7 +16,7 @@ def calculate_valid_crop_size(crop_size, upscale_factor):
 
 def train_hr_transform(crop_size):
     return Compose([
-        RandomCrop(crop_size),
+        RandomCrop(crop_size,pad_if_needed=True),
         ToTensor(),
     ])
 

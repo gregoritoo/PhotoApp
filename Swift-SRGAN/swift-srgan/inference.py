@@ -29,9 +29,11 @@ if __name__ == "__main__" :
     gt_image = cv2.imread("../dataset/test.png").astype(np.float32) / 255.
     gt_image = cv2.cvtColor(gt_image, cv2.COLOR_BGR2RGB)
     print(gt_image.shape)
-    gt_image =  cv2.resize(gt_image, (int(gt_image.shape[0]/8),int(gt_image.shape[1]/8)), cv2.INTER_CUBIC)
+    gt_image =  cv2.resize(gt_image, (int(gt_image.shape[0]/2),int(gt_image.shape[1]/4)), cv2.INTER_CUBIC)
     
-    plt.imshow(gt_image)
+    img = plt.imshow(gt_image)
+    img.set_cmap('hot')
+    plt.axis('off')
     plt.savefig('demo_real.png', bbox_inches='tight')
     gt_tensor = transforms.ToTensor()(gt_image).unsqueeze(0).to(DEVICE)
 
@@ -41,5 +43,7 @@ if __name__ == "__main__" :
 
     sr_image = transforms.ToPILImage()(sr_img.squeeze().detach().cpu())
 
-    plt.imshow(sr_image)
+    img = plt.imshow(sr_image)
+    img.set_cmap('hot')
+    plt.axis('off')
     plt.savefig('demo_upgrade.png', bbox_inches='tight')

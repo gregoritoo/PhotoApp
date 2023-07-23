@@ -4,16 +4,19 @@ import torch.nn as nn
 import torch
 from torch import nn
 from torchvision.models.vgg import vgg16
+from torchvision.models import mobilenet_v2
 
 
 class GeneratorLoss(nn.Module):
-    def __init__(self):
+    def __init__(self,device="cuda:0"):
         super(GeneratorLoss, self).__init__()
-        vgg = vgg16(pretrained=True)
-        loss_network = nn.Sequential(*list(vgg.features)[:31]).eval()
+        #vgg = vgg16(pretrained=True)
+        vgg = mobilenet_v2(pretrained=True)
+        self.device = device
+        loss_network = nn.Sequential(*list(vgg.features)).eval()
         for param in loss_network.parameters():
             param.requires_grad = False
-        self.loss_network = loss_network
+        self.loss_network = loss_network.to(self.device)
         self.mse_loss = nn.MSELoss()
         self.tv_loss = TVLoss()
 
