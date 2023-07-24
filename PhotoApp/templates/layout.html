@@ -4,8 +4,10 @@
         <link rel="stylesheet" href="/static/assets/css/custom.css"
     <body>
         <header>{% block header %}
-            <h1 style="color: #a4dfe9;align-items: center;justify-content: center;display: flex;">Welcome to your PhotoApp </h1>
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="text-center">
+              <h1 style="color: #a4dfe9; text-align: center; margin: 0 auto; font-family: Helvetica;">Welcome to your PhotoApp </h1>
+            </div>
+            <nav class="navbar navbar-expand-lg bg-body-tertiary row-fixed">
                 <div class="container-fluid">
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -21,7 +23,7 @@
             {% endblock %}
         </header>  
     
-        <div class="content" id="content">{% block content %}{% endblock %}</div>
+        <div class="row row-tall" id="content">{% block content %}{% endblock %}</div>
     </body>
 </html>
   <!-- CSS styles-->
@@ -30,11 +32,13 @@
       background-color: #FFFFFF;
       color: #c7ece1;
       margin-top: 0;
+      
     } 
 
     .navbar{
         display: flex;
         align-items: right;
+        height: 5vh;
     }
 
 
@@ -43,14 +47,11 @@
     }
   
 
-   .content {
-     display: flex;
-     align-items: center;
-     justify-content: center;
+   .row-tall {
      width: 100%;
      background-color:#8AAAE5;
-     height: 100%;
-     margin-bottom: 0;
+     height: 100vh;
+
    }
 
   </style>

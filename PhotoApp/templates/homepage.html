@@ -2,13 +2,12 @@
 {% block head %} {{ super() }} {% endblock %}
 <body>
     {% block content %}
-    <div align="center";  >
-
-        
+    <div  class="d-flex justify-content-center align-items-center"  style=" height: 100%; display: flex; justify-content: center;  align-items: center;">
         <form method="post" enctype="multipart/form-data">
             <input type="file" class="form-control" name="file1"  />
-            
-            <button type="submit" class="btn btn-primary">submit</button>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary justify-content-center align-items-center">submit</button>
+            </div>
         </form>
     </div>
     {% endblock %}

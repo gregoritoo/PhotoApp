@@ -3,12 +3,16 @@
 {% block content %}
     <div  class="row container-fluid" style="margin-top: 10px;">
         <div class="col">
-            <h2>Your original image</h2>
-            <img src="{{ user_image +'.png'  }}" class="rounded " alt="test">
+            <div class="text-center">
+                <h2>Your original image</h2>
+                <img src="{{ user_image +'.png'  }}" class="rounded " alt="test">
+            </div>
         </div>
         <div class="col" >
-            <h2>Your image upscaled</h2>
-            <img src="{{ user_image  +'_upscaled.png' }} " class="rounded float-right" alt="...">
+            <div class="text-center">
+                <h2>Your image upscaled</h2>
+                <img src="{{ user_image  +'_upscaled.png' }} " class="rounded float-right" alt="...">
+            </div>
         </div>
     </div>
         <style>
