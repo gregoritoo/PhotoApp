@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Index</title>
-</head>
-<body style="background-color:#000033;" >
-    <div align="center";>
-        <h2 style="color:#CCCCD6; font-family: Courier;">Your low resolution image </h2>
+{% extends "layout.html" %}
+{% block header %} {{ super() }} {% endblock %}
+{% block content %}
+<div  >
+    <div>
+        <p style="color:#CCCCD6; font-family: Courier; font-weight: bold;">Your low resolution image </p>
         <img src="{{ user_image }}"/>
     </div>
 
     <div class="button-wrapper" data-tippy-content="Click to upgrade quality" align="center";>
         <form action="/predict" method="post"  value="{{ user_image }}" >
             <input  type="hidden" name="path" id="path" value="{{ user_image }}" />
-            <button class="button-9" role="button"  >Upscale</button>
+            <button class="button-9" role="button"  >  Upscale    </button>
         </form>
     </div>
-
     <style>        
     .button-9 {
         appearance: button;
@@ -41,7 +38,7 @@
         user-select: none;
         -webkit-user-select: none;
         touch-action: manipulation;
-        width: 10%;
+        width: 20%;
     }
 
     .button-9:disabled {
@@ -52,7 +49,7 @@
         box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
     }
     </style>  
-</body>
-</html>
+</div>
+{% endblock %}
 
 

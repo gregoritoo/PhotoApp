@@ -1,33 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Index</title>
-</head>
-<body style="background-color:#000033;" >
-    <div align="center";>
-        <h2 style="color:#CCCCD6; font-family: Courier;">Your low resolution image </h2>
-    </div> 
-        <div class="row" id="line">
-            <div class="column">
-                <div align="center";>
-                    <h2 style="color:#CCCCD6; font-family: Courier;">Your original image </h2>
-                </div>
-                <img src="{{ user_image +'.png'  }}"  />
-            </div>
-            <div class="column">
-                <div align="center";>
-                    <h2 style="color:#CCCCD6; font-family: Courier;">Your image upscaled </h2>
-                </div> 
-                <img src="{{ user_image  +'_upscaled.png' }} "/>
-            </div>
-        </div> 
+{% extends "layout.html" %}
+{% block header %} {{ super() }} {% endblock %}
+{% block content %}
+    <div  class="row container-fluid" style="margin-top: 10px;">
+        <div class="col">
+            <h2>Your original image</h2>
+            <img src="{{ user_image +'.png'  }}" class="rounded " alt="test">
+        </div>
+        <div class="col" >
+            <h2>Your image upscaled</h2>
+            <img src="{{ user_image  +'_upscaled.png' }} " class="rounded float-right" alt="...">
+        </div>
+    </div>
         <style>
-            line {
-                display: inline-block;
-                vertical-align: top
+            .content {
+                align-items: center;
+                text-align: center;
+                color:#181e29;
             }
+
             </style>
-</body>
-</html>
+{% endblock %}
 
 
